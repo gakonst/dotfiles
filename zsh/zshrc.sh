@@ -4,6 +4,9 @@
 	setopt inc_append_history # To save every command before it is executed 
 	setopt share_history # setopt inc_append_history
 
+# Dircolors
+eval `dircolors ~/dotfiles/zsh/.dircolors`
+
 # Aliases
 	alias v="vim -p"
 	
