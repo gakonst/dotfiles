@@ -1,3 +1,5 @@
+All Credits go to Parth: https://github.com/Parth/dotfiles
+Copied the repo instead of forking due to having some issues with syncing.
 # Awesome Dotfiles
 
 Simple, but extensive customization of ZSH, TMUX, and Vim. 
