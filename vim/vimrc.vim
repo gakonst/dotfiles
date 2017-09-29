@@ -1,4 +1,7 @@
 " General Vim settings
+	call pathogen#infect()
+	call pathogen#helptags()
+	set rtp+=$GOROOT/misc/vim
 	syntax on
 	let mapleader=","
 	set autoindent
