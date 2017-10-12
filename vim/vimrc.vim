@@ -1,8 +1,10 @@
 " General Vim settings
+	so ~/dotfiles/vim/autoload/pathogen.vim
+	set rtp+=$GOROOT/misc/vim
+	
+	syntax on
 	call pathogen#infect()
 	call pathogen#helptags()
-	set rtp+=$GOROOT/misc/vim
-	syntax on
 	let mapleader=","
 	set autoindent
 	set tabstop=4
