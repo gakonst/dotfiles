@@ -1,14 +1,16 @@
 " General Vim settings
 	so ~/dotfiles/vim/autoload/pathogen.vim
+
 	set rtp+=$GOROOT/misc/vim
 	
+	execute pathogen#infect()
+	filetype plugin indent on
 	syntax on
-	call pathogen#infect()
-	call pathogen#helptags()
 	let mapleader=","
-	set autoindent
 	set tabstop=4
 	set shiftwidth=4
+	set expandtab
+
 	set dir=/tmp/
 	set relativenumber 
 	set number
