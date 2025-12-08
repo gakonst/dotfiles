@@ -15,9 +15,9 @@
 
 ## Managed paths (symlinked whole directories unless noted)
 - `.tmux.conf`, `.zshrc`, `.zshenv`, `.zprofile`, `.gitconfig`, `.vimrc`, `.skhdrc`, `.yabairc`, `fzf-zsh-history-config.zsh`.
-- `.config/nvim`, `.config/gh`, `.config/uv`, `.config/scdl`, `.config/scdl2`, `.config/zed`, `.config/fish`, `.config/alacritty` (contains submodule `themes`).
+- `.config/nvim`, `.config/gh`, `.config/uv`, `.config/scdl`, `.config/scdl2`, `.config/zed`, `.config/fish`, `.config/alacritty` (contains submodule `themes`), `.config/zsh-custom` (contains `zsh-autosuggestions`).
 - `.local/bin/env`, `.local/bin/env.fish`.
-- Submodules: `.oh-my-zsh`, `.config/alacritty/themes`.
+- Submodules: `.oh-my-zsh`, `.config/alacritty/themes`, `.config/zsh-custom/plugins/zsh-autosuggestions`.
 
 ## Notes & cautions
 - SoundCloud configs contain public client IDs; verify before publishing.
@@ -36,6 +36,7 @@ repo=~/projects/dotfiles; ok=0; while read s d; do t="$repo/$s"; p="$HOME/$d"; [
 .config/scdl .config/scdl
 .config/scdl2 .config/scdl2
 .config/zed .config/zed
+.config/zsh-custom .config/zsh-custom
 .tmux.conf .tmux.conf
 .zshrc .zshrc
 .zshenv .zshenv

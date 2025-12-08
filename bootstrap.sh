@@ -166,6 +166,7 @@ link_all() {
     ".config/scdl:.config/scdl"
     ".config/scdl2:.config/scdl2"
     ".config/zed:.config/zed"
+    ".config/zsh-custom:.config/zsh-custom"
     ".config/fish:.config/fish"
     ".config/alacritty:.config/alacritty"
     ".local/bin/env:.local/bin/env"

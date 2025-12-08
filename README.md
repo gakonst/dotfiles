@@ -3,7 +3,7 @@
 Dotfiles for macOS: tmux, Neovim, Zsh, Yabai/SKHD, Alacritty, and a few helpers. All files live in this repo and get symlinked into `$HOME` by the bootstrap script.
 
 ## What's inside
-- **Shell:** `.zshrc`, `.zshenv`, `.zprofile`, `fzf-zsh-history-config.zsh`, PATH helpers in `.local/bin/env*`, oh-my-zsh with modern CLI aliases, fzf/zoxide setup, tmux auto-attach.
+- **Shell:** `.zshrc`, `.zshenv`, `.zprofile`, `fzf-zsh-history-config.zsh`, PATH helpers in `.local/bin/env*`, oh-my-zsh with modern CLI aliases, fzf/zoxide setup, tmux auto-attach. `ZSH_CUSTOM` points to `.config/zsh-custom` where `zsh-autosuggestions` is vendored.
 - **Neovim:** Lua config (`.config/nvim/init.lua`) with lazy.nvim, gruvbox, LSP (rust/ts/python/lua), nvim-cmp, Treesitter, Conform format-on-save, Trouble, lualine, NvimTree. Lockfile included.
 - **Tmux:** `.tmux.conf` with backtick prefix, vim-style splits/movement, catppuccin-ish status, mouse, Alt+number window jumps.
 - **Window mgmt:** `.yabairc` (BSP layout, gaps, rules) and `.skhdrc` (bindings for focus/move/resize, spaces, displays).
@@ -38,6 +38,7 @@ Afterwards:
 ### Submodules
 - `.oh-my-zsh` (ohmyzsh)
 - `.config/alacritty/themes` (alacritty-theme)
+- `.config/zsh-custom/plugins/zsh-autosuggestions` (zsh-users)
 
 ## Notes
 - The bootstrap script backs up any existing files it replaces into `~/.dotfiles_backup_<timestamp>`.
