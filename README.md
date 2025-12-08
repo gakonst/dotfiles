@@ -7,7 +7,7 @@ Dotfiles for macOS: tmux, Neovim, Zsh, Yabai/SKHD, Alacritty, and a few helpers.
 - **Neovim:** Lua config (`.config/nvim/init.lua`) with lazy.nvim, gruvbox, LSP (rust/ts/python/lua), nvim-cmp, Treesitter, Conform format-on-save, Trouble, lualine, NvimTree. Lockfile included.
 - **Tmux:** `.tmux.conf` with backtick prefix, vim-style splits/movement, catppuccin-ish status, mouse, Alt+number window jumps.
 - **Window mgmt:** `.yabairc` (BSP layout, gaps, rules) and `.skhdrc` (bindings for focus/move/resize, spaces, displays).
-- **Terminal:** `.config/alacritty/alacritty.toml` importing solarized_light from the alacritty-theme repo.
+- **Terminal:** `.config/alacritty` (includes `alacritty-theme` submodule) with `alacritty.toml` importing solarized_light.
 - **GitHub CLI:** `.config/gh/config.yml` and `hosts.yml` (no tokens).
 - **Python toolchain:** `.config/uv/*` receipt and version pin.
 - **SoundCloud dl:** `.config/scdl/scdl.cfg` and `.config/scdl2/scdl.cfg` (contains public client_id; review before pushing).
@@ -33,6 +33,11 @@ Afterwards:
 ### Flags
 - Set `SKIP_BREW=1` to skip Homebrew installs (handy when re-linking on an existing machine).
 - Set `SKIP_OMZ=1` to skip oh-my-zsh install (if you manage it yourself).
+- Set `SKIP_FZF=1` to skip fzf keybinding install.
+
+### Submodules
+- `.oh-my-zsh` (ohmyzsh)
+- `.config/alacritty/themes` (alacritty-theme)
 
 ## Notes
 - The bootstrap script backs up any existing files it replaces into `~/.dotfiles_backup_<timestamp>`.

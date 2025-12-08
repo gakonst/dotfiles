@@ -149,17 +149,6 @@ install_fzf_bindings() {
   fi
 }
 
-install_alacritty_theme() {
-  local target="$HOME/.config/alacritty/themes"
-  if [[ -d "$target/.git" ]]; then
-    (cd "$target" && git pull --ff-only >/dev/null 2>&1 && log "Updated alacritty themes") || warn "alacritty theme update failed"
-    return
-  fi
-  mkdir -p "$HOME/.config/alacritty"
-  git clone https://github.com/alacritty/alacritty-theme "$target" >/dev/null 2>&1 && \
-    log "Cloned alacritty themes" || warn "alacritty theme clone failed"
-}
-
 link_all() {
   local mappings=(
     ".tmux.conf:.tmux.conf"
@@ -171,17 +160,14 @@ link_all() {
     ".skhdrc:.skhdrc"
     ".yabairc:.yabairc"
     "fzf-zsh-history-config.zsh:fzf-zsh-history-config.zsh"
-    ".config/nvim/init.lua:.config/nvim/init.lua"
-    ".config/nvim/lazy-lock.json:.config/nvim/lazy-lock.json"
-    ".config/gh/config.yml:.config/gh/config.yml"
-    ".config/gh/hosts.yml:.config/gh/hosts.yml"
-    ".config/uv/uv-receipt.json:.config/uv/uv-receipt.json"
-    ".config/uv/.python-version:.config/uv/.python-version"
-    ".config/scdl/scdl.cfg:.config/scdl/scdl.cfg"
-    ".config/scdl2/scdl.cfg:.config/scdl2/scdl.cfg"
-    ".config/zed/settings.json:.config/zed/settings.json"
-    ".config/fish/conf.d/uv.env.fish:.config/fish/conf.d/uv.env.fish"
-    ".config/alacritty/alacritty.toml:.config/alacritty/alacritty.toml"
+    ".config/nvim:.config/nvim"
+    ".config/gh:.config/gh"
+    ".config/uv:.config/uv"
+    ".config/scdl:.config/scdl"
+    ".config/scdl2:.config/scdl2"
+    ".config/zed:.config/zed"
+    ".config/fish:.config/fish"
+    ".config/alacritty:.config/alacritty"
     ".local/bin/env:.local/bin/env"
     ".local/bin/env.fish:.local/bin/env.fish"
   )
@@ -208,6 +194,5 @@ install_brew_packages
 init_submodules
 install_oh_my_zsh
 install_fzf_bindings
-install_alacritty_theme
 link_all
 post_notes
