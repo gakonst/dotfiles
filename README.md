@@ -8,6 +8,10 @@ Dotfiles for macOS: tmux, Neovim, Zsh, Yabai/SKHD, Alacritty, and a few helpers.
 - **Tmux:** `.tmux.conf` with backtick prefix, vim-style splits/movement, catppuccin-ish status, mouse, Alt+number window jumps.
 - **Window mgmt:** `.yabairc` (BSP layout, gaps, rules) and `.skhdrc` (bindings for focus/move/resize, spaces, displays).
 - **Terminal:** `.config/alacritty/alacritty.toml` importing solarized_light from the alacritty-theme repo.
+- **GitHub CLI:** `.config/gh/config.yml` and `hosts.yml` (no tokens).
+- **Python toolchain:** `.config/uv/*` receipt and version pin.
+- **SoundCloud dl:** `.config/scdl/scdl.cfg` and `.config/scdl2/scdl.cfg` (contains public client_id; review before pushing).
+- **Zed:** `.config/zed/settings.json` (vim mode, fonts, theme prefs).
 - **Vim (legacy):** `.vimrc` with vim-plug, gruvbox/solarized, airline, NERDTree, fzf, vim-tmux-navigator, commentary.
 - **Misc:** `.gitconfig`, fish snippet `.config/fish/conf.d/uv.env.fish` to share PATH helper.
 
