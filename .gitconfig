@@ -1,8 +1,21 @@
-[core]
-	pager = delta
 [user]
 	name = Georgios Konstantopoulos
 	email = me@gakonst.com
+	signingkey = BF768BD8DBFFD4BA
+[init]
+	defaultBranch = master
+[credential]
+	helper = store
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[commit]
+	gpgsign = false
+[core]
+	pager = delta
+	compression = 0
 [delta]
 	navigate = true
 	side-by-side = true

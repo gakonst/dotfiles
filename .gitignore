@@ -1,2 +1,9 @@
 .DS_Store
 .dotfiles_backup_*
+.codex/auth.json
+.codex/history.jsonl
+.codex/internal_storage.json
+.codex/log/
+.codex/sessions/
+.codex/version.json
+.codex/skills/**/node_modules/

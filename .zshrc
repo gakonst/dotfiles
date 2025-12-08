@@ -1,17 +1,11 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
+alias tmux="TERM=xterm-256color tmux"
+export ZSH_TMUX_AUTOSTART=true
 
-# Auto-start tmux on new terminal
-# Only start if not already inside tmux and if this is an interactive shell
-if [[ -z "$TMUX" ]] && [[ $- == *i* ]]; then
-    # Check if tmux is installed
-    if command -v tmux &> /dev/null; then
-        # Check if we're in a terminal that supports tmux
-        if [[ -t 0 ]] && [[ -t 1 ]] && [[ -t 2 ]]; then
-            # Try to attach to existing session or create new one
-            tmux attach-session -t main 2>/dev/null || tmux new-session -s main
-        fi
-    fi
+# Auto-start tmux on new terminal (keeps same working dir)
+if [[ -z "$TMUX" ]] && [[ $- == *i* ]] && command -v tmux &>/dev/null; then
+  if [[ -t 0 ]] && [[ -t 1 ]] && [[ -t 2 ]]; then
+    tmux attach-session -t main 2>/dev/null || tmux new-session -s main
+  fi
 fi
 
 # Bun global binaries - highest priority
@@ -90,11 +84,46 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git fzf zsh-autosuggestions)
+plugins=(git git-extras zsh-autosuggestions history vi-mode tmux rust fzf)
+plugins+=(fasd brew common-aliases macos taskwarrior extract vagrant docker vscode poetry minikube)
+
+export DISABLE_AUTO_UPDATE=true
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=10'
 
 source $ZSH/oh-my-zsh.sh
+fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
-# User configuration
+export EDITOR='nvim'
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# aliases
+alias cat=bat
+alias grep=rg
+alias vim=nvim
+alias v=nvim
+alias vi=nvim
+
+# PATH add-ons
+export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/Library/Python/3.9/bin:$PATH"
+export PATH="$HOME/.poetry/bin:$PATH"
+export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
+export PNPM_HOME="$HOME/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+export PATH="$BUN_INSTALL/bin:$PATH"
+export PATH="$PATH:$HOME/.shadow/bin"
+
+export GPG_TTY=$(tty)
+
+# Google Cloud SDK (if installed)
+if [ -f "$HOME/Downloads/google-cloud-sdk/path.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/path.zsh.inc"; fi
+if [ -f "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc"; fi
+
+# Keep default oh-my-zsh placeholders below
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
@@ -121,11 +150,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 # (PATH already set above)
 
-# Modern Rust CLI tool aliases
 alias ls='eza'
-alias cat='bat'
 alias find='fd'
-alias grep='rg'
 alias du='dust'
 alias df='duf'
 alias ps='procs'
@@ -135,7 +161,6 @@ alias man='tldr'
 alias sed='sd'
 alias diff='delta'
 alias ping='gping'
-# alias curl='xh'
 
 # Initialize zoxide for smarter cd
 eval "$(zoxide init zsh)"
@@ -194,82 +219,42 @@ if ! type __fzfcmd > /dev/null 2>&1; then
 fi
 alias f="rg --files | fzf"
 
-
 . "$HOME/.local/bin/env"
 
-# bun completions
-[ -s "/Users/gakonst/.bun/_bun" ] && source "/Users/gakonst/.bun/_bun"
-
-# Ensure bun global binaries have highest priority
-export PATH="$HOME/.bun/bin:$PATH"
+# bun completions (when installed)
+[ -s "$HOME/.bun/_bun" ] && source "$HOME/.bun/_bun"
 
 # Source enhanced FZF history configuration
 source ~/fzf-zsh-history-config.zsh 2>/dev/null
 
 # FZF Configuration
-# Set up fzf key bindings and fuzzy completion
 if command -v fzf &> /dev/null; then
-  # Source fzf key bindings (CTRL-T, CTRL-R, ALT-C)
-  source "/opt/homebrew/opt/fzf/shell/key-bindings.zsh"
-  
-  # Source fzf auto-completion
-  source "/opt/homebrew/opt/fzf/shell/completion.zsh"
-  
-  # Enable fuzzy auto-completion for files and directories
-  # Use ** as the trigger sequence (e.g., vim **<TAB>)
+  source "/opt/homebrew/opt/fzf/shell/key-bindings.zsh" 2>/dev/null || true
+  source "/opt/homebrew/opt/fzf/shell/completion.zsh" 2>/dev/null || true
   export FZF_COMPLETION_TRIGGER='**'
-  
-  # Options for fzf
-  export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-  
-  # Use fd (if available) for better performance
+  export FZF_DEFAULT_OPTS='--height 70% --layout=reverse --border'
   if command -v fd &> /dev/null; then
     export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
     export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
   fi
-  
-  # Advanced: Preview files with bat (if available)
   if command -v bat &> /dev/null; then
     export FZF_CTRL_T_OPTS="--preview 'bat --style=numbers --color=always --line-range :500 {}'"
   fi
 fi
 
 # ZSH Autosuggestions Configuration
-# Configure autosuggestions to use history
 ZSH_AUTOSUGGEST_STRATEGY=(history completion)
-
-# Set the color for suggestions (gray)
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
-
-# Bind right arrow to accept the current suggestion
-bindkey '→' autosuggest-accept
-bindkey '^[[C' autosuggest-accept  # Alternative right arrow code
-
-# You can also use these bindings:
-# Ctrl+Space to accept suggestion
 bindkey '^ ' autosuggest-accept
-# End key to accept suggestion
 bindkey '^[[F' autosuggest-accept
-# Use z for smart directory jumping with zoxide
-alias zl='z && l'  # Jump with zoxide and list files
+bindkey '^[[C' autosuggest-accept
 
-# pnpm
-export PNPM_HOME="/Users/gakonst/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-# pnpm end
-
-# Enable Emacs keybindings (default in zsh)
+# Keybindings: vi mode but keep common insert bindings
 bindkey -e
-
 bindkey -v
-# In insert mode, keep familiar readline moves
 bindkey -M viins '^A' beginning-of-line
 bindkey -M viins '^E' end-of-line
-# Edit current command line in $VISUAL/$EDITOR (Esc then v in vi-mode)
 autoload -Uz edit-command-line
 zle -N edit-command-line
 bindkey -M vicmd 'v' edit-command-line

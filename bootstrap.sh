@@ -171,6 +171,7 @@ link_all() {
     ".config/alacritty:.config/alacritty"
     ".local/bin/env:.local/bin/env"
     ".local/bin/env.fish:.local/bin/env.fish"
+    ".codex:.codex"
   )
 
   for entry in "${mappings[@]}"; do

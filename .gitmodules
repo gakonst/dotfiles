@@ -7,3 +7,6 @@
 [submodule ".config/zsh-custom/plugins/zsh-autosuggestions"]
 	path = .config/zsh-custom/plugins/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule ".codex/superpowers"]
+	path = .codex/superpowers
+	url = https://github.com/obra/superpowers.git
