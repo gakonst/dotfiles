@@ -151,6 +151,9 @@ if [ -f "$HOME/Downloads/google-cloud-sdk/completion.zsh.inc" ]; then . "$HOME/D
 # (PATH already set above)
 
 alias ls='eza'
+alias l='eza -l'
+alias ll='eza -la'
+alias la='eza -a'
 alias find='fd'
 alias du='dust'
 alias df='duf'
