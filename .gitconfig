@@ -1,5 +1,8 @@
 [core]
 	pager = delta
+[user]
+	name = Georgios Konstantopoulos
+	email = me@gakonst.com
 [delta]
 	navigate = true
 	side-by-side = true

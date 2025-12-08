@@ -16,11 +16,13 @@ fi
 
 # Bun global binaries - highest priority
 export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="$HOME/.config/zsh-custom"
+
+# Base PATH (bun first, then Homebrew/system, then cargo; foundry appended in .zshenv)
+export PATH="$BUN_INSTALL/bin:/opt/homebrew/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.cargo/bin"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -117,9 +119,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-export PATH=/opt/homebrew/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin
-
-export PATH=$PATH:$HOME/.cargo/bin
+# (PATH already set above)
 
 # Modern Rust CLI tool aliases
 alias ls='eza'
@@ -192,8 +192,6 @@ fkill() {
 if ! type __fzfcmd > /dev/null 2>&1; then
   eval "$(fzf --zsh)"
 fi
-export PATH=/opt/homebrew/bin:/opt/homebrew/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin:/var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin:/Users/gakonst/.cargo/bin
-
 alias f="rg --files | fzf"
 
 

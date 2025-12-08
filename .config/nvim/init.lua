@@ -202,9 +202,6 @@ require("lazy").setup({
   { "stevearc/conform.nvim" },
   { "ray-x/lsp_signature.nvim" },
   { "stevearc/dressing.nvim" },
-
-  -- Local Strudel plugin
-  { dir = "~/vibe-producing/vim-strudel" },
 }, {
   install = { colorscheme = { "gruvbox" } },
 })
