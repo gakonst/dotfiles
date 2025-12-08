@@ -1,0 +1,5 @@
+[core]
+	pager = delta
+[delta]
+	navigate = true
+	side-by-side = true
