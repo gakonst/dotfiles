@@ -1,12 +1,12 @@
 [submodule ".oh-my-zsh"]
 	path = .oh-my-zsh
-	url = https://github.com/ohmyzsh/ohmyzsh.git
+	url = git@github.com:ohmyzsh/ohmyzsh.git
 [submodule ".config/alacritty/themes"]
 	path = .config/alacritty/themes
-	url = https://github.com/alacritty/alacritty-theme
+	url = git@github.com:alacritty/alacritty-theme.git
 [submodule ".config/zsh-custom/plugins/zsh-autosuggestions"]
 	path = .config/zsh-custom/plugins/zsh-autosuggestions
-	url = https://github.com/zsh-users/zsh-autosuggestions
+	url = git@github.com:zsh-users/zsh-autosuggestions.git
 [submodule ".codex/superpowers"]
 	path = .codex/superpowers
-	url = https://github.com/obra/superpowers.git
+	url = git@github.com:obra/superpowers.git
