@@ -267,3 +267,8 @@ bindkey -M vicmd 'v' edit-command-line
 
 alias spotdl="uvx spotdl"
 alias demucs="uvx demucs"
+
+# Show directory contents on shell start (useful for new tmux panes)
+if [[ $- == *i* ]]; then
+  l
+fi

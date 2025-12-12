@@ -6,6 +6,14 @@
 - Personal/custom skills live in `.codex/skills` (these override superpowers); no edits inside the submodule.
 - Use `bootstrap.sh` as the single entrypoint; it backs up pre-existing targets to `~/.dotfiles_backup_<timestamp>`.
 
+## Codex usage rules (GitHub/PR work)
+- Treat any GitHub/PR request ("review this", links, PR numbers) as: load `preferences` + `agent` skills immediately.
+- Default path: repo lives at `~/github/<owner>/<repo>`; ensure it exists or clone with `gh repo clone` before proceeding.
+- For PRs: create a git worktree `.worktrees/pr-<num>` in the repo root, then `gh pr checkout <num>` inside it; run all review commands from that worktree.
+- Start the `control` tmux session with a dedicated window per task; launch the sub-agent there following the `agent` skill instructions so the main pane stays free.
+- Begin reviews by reading the PR diff and summarizing risks before running checks; then run the stack-default checks unless the user opts out.
+- Always cite `preferences` for git/GitHub conventions (Conventional Commits, `gh` usage, paths-filter CI expectations) and avoid deviating without explicit user direction.
+
 ## Runbook
 1. `git clone https://github.com/gakonst/dotfiles.git ~/dotfiles && cd ~/dotfiles` (or use existing checkout).
 2. Ensure submodules: `git submodule update --init --recursive` (bootstrap does this automatically) — includes `.codex/superpowers`.

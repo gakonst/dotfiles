@@ -1,6 +1,6 @@
 ---
 name: brainstorm
-description: Use when generating options or clarifying a build/fix request—pull constraints from the user, list varied approaches, then narrow with them to pick a plan.
+description: Use when generating options or clarifying a build/fix request—pull constraints from the user, list varied approaches, then narrow with them to pick a plan. For code reviews, use briefly to confirm expectations, then hand off to the agent flow.
 ---
 
 # Brainstorm
@@ -13,6 +13,7 @@ Generate many concise options first, then converge with the user. Favor breadth,
 - User asks for ideas, approaches, pros/cons, or “what are my options?”
 - Early in a task to choose direction or unblock.
 - When stuck or tunneling on one solution.
+- **Before a code/PR review:** confirm expectations (depth, checks to run) then proceed with the agent default review flow.
 
 ## Core Pattern (Diverge → Converge)
 1) Clarify must-haves/constraints in 1–3 bullets (time, stack, budget, risk).  

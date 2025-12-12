@@ -11,3 +11,6 @@ hide_rate_limit_model_nudge = true
 
 [projects."/Users/georgios/github/dotfiles"]
 trust_level = "trusted"
+
+[projects."/Users/georgios"]
+trust_level = "untrusted"
