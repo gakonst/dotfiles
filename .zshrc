@@ -15,8 +15,11 @@ export BUN_INSTALL="$HOME/.bun"
 export ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM="$HOME/.config/zsh-custom"
 
-# Base PATH (bun first, then Homebrew/system, then cargo; foundry appended in .zshenv)
-export PATH="$BUN_INSTALL/bin:/opt/homebrew/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.cargo/bin"
+# Base PATH (bun first, then Homebrew/system, then cargo; foundry appended below)
+export PATH="$BUN_INSTALL/bin:/opt/homebrew/bin:/usr/local/bin:/System/Cryptexes/App/usr/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.cargo/bin:$HOME/.foundry/bin"
+
+# Foundry (forge/anvil/cast)
+export PATH="$PATH:$HOME/.foundry/bin"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
