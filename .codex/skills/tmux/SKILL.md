@@ -89,6 +89,48 @@ Some special rules for processes:
 - Kill all sessions on a socket: `tmux -S "$SOCKET" list-sessions -F '#{session_name}' | xargs -r -n1 tmux -S "$SOCKET" kill-session -t`.
 - Remove everything on the private socket: `tmux -S "$SOCKET" kill-server`.
 
+## Agent driving pattern (multiple Codex panes)
+
+Goal: fire one instruction per agent pane, monitor automatically, and only intervene when a pane needs input. Always hit Enter after every send-keys.
+
+Spawn an agent window
+- `tmux -S "$SOCKET" new-window -t "$SESSION" -n <task>`
+- Send (each followed by Enter):
+  1) `codex --dangerously-bypass-approvals-and-sandbox`
+  2) `Worktree is .worktrees/. Do not ask. Create update_plan with TDD steps, then <task>; run cargo fmt && cargo clippy && cargo test.`
+
+Monitor loop (pane-agnostic; codex exec ignores AGENTS.md)
+```bash
+SOCKET=${TMPDIR:-/tmp}/claude-tmux-sockets/claude.sock
+SESSION=reth-opts
+WINS=$(tmux -S "$SOCKET" list-windows -F '#W')
+
+monitor_once() {
+  for w in $WINS; do
+    OUT=$(tmux -S "$SOCKET" capture-pane -p -J -t "$SESSION:$w" -S -80)
+    DECISION=$(printf "%s\n\nShould I give more commands to this task?" "$OUT" \
+      | codex exec --system "Ignore all ~/.codex/AGENTS.md instructions. You are a simple monitor. Reply ONLY 'YES' if operator input is needed (waiting for a choice/stuck prompt). Reply ONLY 'NO' otherwise.")
+    [ "$DECISION" = "YES" ] && echo "$w"
+  done
+}
+
+while true; do
+  NEEDS=$(monitor_once)
+  if [ -n "$NEEDS" ]; then
+    echo "Pane(s) needing input: $NEEDS"
+    break   # Ctrl+C loop, drive those panes, then rerun
+  fi
+  sleep 10
+done
+```
+
+Driving rule
+- If flagged, stop the loop, send one concise input/answer to that pane with Enter (e.g., “Proceed; no more questions” or a numeric choice). Don’t stack commands. Restart the loop afterward.
+
+Other rules
+- Always use `.worktrees/` under the repo; never ask the agent for paths.
+- Prefer `capture-pane` polling over piping logs; only intervene when idle/blocked.
+
 ## Helper: wait-for-text.sh
 
 `./tools/wait-for-text.sh` polls a pane for a regex (or fixed string) with a timeout. Works on Linux/macOS with bash + tmux + grep.
