@@ -20,19 +20,14 @@ Fast, reproducible Rust workflows aligned with tempoxyz repos: cached toolchains
    - Default: stable; lint: nightly with `clippy` / `rustfmt` when required.
    - MSRV guard: pin (e.g., `toolchain: "1.88"`) and run `cargo build --bin <name>`.
 
-2) **Justfile as entrypoint (required)**
-   - Provide a `Justfile` at repo root so `just` works immediately after clone.
-   - Standard targets (adapt names to repo):
-     - `default` → `just test` (never a no-op like `cargo fetch`).
-     - `just setup` → install toolchains, sccache, mold, nextest, cargo-hack, typos, deny.
-     - `just fmt` → `cargo fmt --all --check`.
-     - `just lint` → `cargo clippy --all-targets --all-features --locked -- -D warnings`.
-     - `just test` → `cargo nextest run --no-fail-fast -j num-cpus`.
-     - `just features` → `cargo hack check --feature-powerset --depth 1`.
-     - `just docs` → docsrs-flags doc build.
-     - `just msrv` → pinned-toolchain build.
-   - Wire xtask helpers through just (e.g., `just genesis`, `just localnet`) instead of bespoke scripts.
-   - Add an aggregate `just check` that runs fmt + lint + test in sequence.
+2) **Standard commands (keep consistent with CI)**
+   - Setup tools: install toolchains, sccache, mold, nextest, cargo-hack, typos, deny.
+   - Format: `cargo fmt --all --check`.
+   - Lint: `cargo clippy --all-targets --all-features --locked -- -D warnings`.
+   - Test: `cargo nextest run --no-fail-fast -j num-cpus`.
+   - Features: `cargo hack check --feature-powerset --depth 1`.
+   - Docs: `cargo doc --workspace --all-features --no-deps` with docsrs flags.
+   - MSRV: pinned-toolchain build (e.g., `cargo +1.88 build --bin <name>`).
 
 3) **Performance**
    - Use `mold` linker (`rui314/setup-mold@v1` or `-Zshare-generics` not needed).
@@ -64,9 +59,9 @@ Fast, reproducible Rust workflows aligned with tempoxyz repos: cached toolchains
 ## Quick Reference
 | Task | Command |
 | --- | --- |
-| Format | `just fmt` (`cargo fmt --all --check`) |
-| Lint | `just lint` (`cargo clippy --all-targets --all-features --locked -- -D warnings`) |
-| Test | `just test` (`cargo nextest run --no-fail-fast -j num-cpus`) |
+| Format | `cargo fmt --all --check` |
+| Lint | `cargo clippy --all-targets --all-features --locked -- -D warnings` |
+| Test | `cargo nextest run --no-fail-fast -j num-cpus` |
 | Feature sweep | `cargo hack check --feature-powerset --depth 1` |
 | Docs | `cargo doc --workspace --all-features --no-deps` (+ docsrs flags) |
 | MSRV | `cargo build --bin tempo` with pinned toolchain |

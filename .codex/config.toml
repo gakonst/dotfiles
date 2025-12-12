@@ -1,8 +1,13 @@
 model = "gpt-5.1-codex-max"
-model_reasoning_effort = "high"
+model_reasoning_effort = "medium"
 
 [features]
 web_search_request = true
+skills = true
 
 [notice]
 "hide_gpt-5.1-codex-max_migration_prompt" = true
+hide_rate_limit_model_nudge = true
+
+[projects."/Users/georgios/github/dotfiles"]
+trust_level = "trusted"
