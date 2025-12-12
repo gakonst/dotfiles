@@ -20,7 +20,7 @@ Default to the GitHub CLI for all repo interactions: clone, fork, check out PRs,
    Get token on demand: `gh auth token`.
 
 2) **Clone / checkout**  
-   - `gh repo clone owner/repo` (optionally `-- --depth 1`).  
+   - Default clone root: `~/github/<owner>/<repo>`. Ensure parent exists: `dir=~/github/<owner>/<repo>; mkdir -p "$(dirname "$dir")"; gh repo clone <owner>/<repo> "$dir"` (add `-- --depth 1` if shallow).  
    - `gh pr checkout 123` to fetch a PR branch.
 
 3) **PR flow**  
@@ -48,7 +48,7 @@ Default to the GitHub CLI for all repo interactions: clone, fork, check out PRs,
 | Task | Command |
 | --- | --- |
 | Check auth | `gh auth status` |
-| Clone repo | `gh repo clone owner/repo [dir]` |
+| Clone repo (standard path) | `dir=~/github/owner/repo; mkdir -p "$(dirname "$dir")"; gh repo clone owner/repo "$dir"` |
 | Checkout PR | `gh pr checkout <num>` |
 | Create PR | `gh pr create --fill` |
 | Review PR | `gh pr review --approve -b "Looks good"` |
@@ -63,12 +63,14 @@ Default to the GitHub CLI for all repo interactions: clone, fork, check out PRs,
 - Unauthenticated `curl` to api.github.com hitting rate limits; use `gh api`.
 - Forgetting `--paginate` and missing results.
 - Mixing SSH/HTTPS remotes manually; `gh` respects your chosen protocol.
+- Cloning into the current directory or `~/github/<repo>` and skipping the org folder, breaking the standard layout.
 
 ## Red Flags
 - Copy-pasted PATs in shell history or notebooks.
 - `curl https://api.github.com/...` in data scripts without auth header.
 - Manual PR URL creation instead of `gh pr create`.
 - Cloning private repos with `git clone` and failing auth.
+- Running `gh repo clone owner/repo` in the current directory because “it’s faster” instead of targeting `~/github/<owner>/<repo>`.
 
 ## Verification
 - Run `gh auth status` (should show logged-in host).  
